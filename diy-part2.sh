@@ -20,7 +20,7 @@
 #sed -i 's/OpenWrt/P3TERX-Router/g' package/base-files/files/bin/config_generate
 
 git clone https://github.com/Zxilly/UA2F.git package/UA2F
-git clone https://github.com/CHN-beta/rkp-ipid.git package/rkp-ipid
+git clone https://github.com/tty228/luci-app-wechatpush.git package/luci-app-wechatpush
 
 # 删除原默认主题
 rm -rf feeds/luci/themes/luci-theme-argon
