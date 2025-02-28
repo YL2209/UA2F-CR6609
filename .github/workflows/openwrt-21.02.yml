@@ -10,19 +10,23 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Lede CR6608
+name: OpenWrt-21.02 immortalwrt-MI-CR6608
 
 on:
   repository_dispatch:
   workflow_dispatch:
-
+  push:
+    paths:
+      - 'openwrt-21.02/**'
+      - '.github/workflows/openwrt-21.02.yml'
+      
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  FEEDS_CONF: feeds.lede.default
-  CONFIG_FILE: CR6608.lede.config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy2-CR6608-lede.sh
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: openwrt-21.02
+  FEEDS_CONF: openwrt-21.02/feeds.conf.default
+  CONFIG_FILE: openwrt-21.02/immortalwrt.config
+  DIY_P1_SH: openwrt-21.02/diy-part1.sh
+  DIY_P2_SH: openwrt-21.02/diy-part2.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true

@@ -10,19 +10,24 @@
 # See /LICENSE for more information.
 #
 
-name: OpenWrt Builder
+name: OpenWrt-23.05 immortalwrt-MI-CR6608
 
 on:
   repository_dispatch:
   workflow_dispatch:
+  push:
+    paths:
+      - 'openwrt-23.05/**'
+      - '.github/workflows/openwrt-23.05.yml'
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: .config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  REPO_BRANCH: openwrt-23.05
+  FEEDS_CONF: openwrt-23.05/feeds.conf.default
+  CONFIG_FILE: openwrt-23.05/immortalwrt.config
+  DIY_P1_SH: openwrt-23.05/diy-part1.sh
+  DIY_P2_SH: openwrt-23.05/diy-part2.sh
+  DIY_P3_SH: openwrt-23.05/diy-part3.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
@@ -77,6 +82,11 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+
+    - name: 上传 文件
+      run: |
+        chmod +x $DIY_P3_SH
+        $GITHUB_WORKSPACE/$DIY_P3_SH
 
     - name: Download package
       id: package
