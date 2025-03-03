@@ -38,6 +38,9 @@ sed -i 's/^PKG_HASH:=.*/PKG_HASH:=02a20e8fc5d7c3c6999ad6143c2d4496b40b5b85286211
 # 增加 UA2F 需要的从 CONFIG_NETFILTER_NETLINK_GLUE_CT=y
 awk '/# Netfilter Extensions/{print; getline; if ($0 ~ /^\*/) {print; print "CONFIG_NETFILTER_NETLINK_GLUE_CT=y"} else {print $0; print "CONFIG_NETFILTER_NETLINK_GLUE_CT=y"}; next} 1' .config > .config.tmp && mv .config.tmp .config
 
+git clone https://github.com/YL2209/luci-app-campus-network-mac.git package/luci-app-campus-network-mac
+chmod 755 package/luci-app-campus-network-mac/luci-app-wan-mac/root/etc/init.d/wan_mac
+
 #更改主机型号，支持中文。 
 sed -i 's/model = "Xiaomi Mi Router CR6608"/model = "小米 CR6608 校园网专用"/g' target/linux/ramips/dts/mt7621_xiaomi_mi-router-cr6608.dts
 
@@ -45,11 +48,11 @@ sed -i 's/model = "Xiaomi Mi Router CR6608"/model = "小米 CR6608 校园网专�
 sed -i 's/ImmortalWrt/NAOKUO/g' package/base-files/files/bin/config_generate
 
 # 修改默认 wifi 名称 ssid 为 NAOKUO
-sed -i 's/ssid=ImmortalWrt/ssid=NAOKUO_cr6608/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# sed -i 's/ssid=ImmortalWrt/ssid=NAOKUO_cr6608/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # 修改默认 wifi 加密模式
-sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# sed -i 's/encryption=none/encryption=psk2/g' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 # 修改默认 wifi 密码 key 为 12345678
-sed -i '/set wireless.default_${name}.encryption=psk2/a\			set wireless.default_${name}.key=12345678' package/kernel/mac80211/files/lib/wifi/mac80211.sh
+# sed -i '/set wireless.default_${name}.encryption=psk2/a\			set wireless.default_${name}.key=12345678' package/kernel/mac80211/files/lib/wifi/mac80211.sh
 
 # 修改版本名称
 # sed -i 's/ImmortalWrt/编译时间 $(TZ=UTC-8 date "+%Y.%m.%d") @ NAOKUO/g' include/trusted-firmware-a.mk
